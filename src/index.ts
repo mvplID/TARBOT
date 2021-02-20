@@ -792,7 +792,7 @@ function cleanupDownload(gid: string, message: string, url?: string, dlDetails?:
     dlManager.removeCancelledDls(gid);
     dlManager.deleteDownload(gid);
     updateAllStatus();
-    downloadUtils.deleteDownloadedFile(dlDetails.downloadDir);
+    // downloadUtils.deleteDownloadedFile(dlDetails.downloadDir);
   } else {
     // Why is this message so calm? We should be SCREAMING at this point!
     console.error(`cleanupDownload: Could not get dlDetails for ${gid}`);
@@ -878,9 +878,10 @@ function ariaOnDownloadComplete(gid: string, retry: number): void {
                 return;
               }
             }
-            dlDetails.isUploading = true;
-            console.log(`${gid}: Completed. Filename: ${filename}. Starting upload.`);
-            ariaTools.uploadFile(dlDetails, file, size, isUnzip, driveUploadCompleteCallback);
+            cleanupDownload(gid, 'Dowloaded successfully and saved at: ' + file);
+            // dlDetails.isUploading = true;
+            // console.log(`${gid}: Completed. Filename: ${filename}. Starting upload.`);
+            // ariaTools.uploadFile(dlDetails, file, size, isUnzip, driveUploadCompleteCallback);
           } else {
             var reason = 'Upload failed. Blacklisted file name.';
             console.log(`${gid}: Blacklisted. Filename: ${filename}.`);
