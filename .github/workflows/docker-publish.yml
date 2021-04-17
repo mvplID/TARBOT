@@ -1,5 +1,5 @@
 name: Docker Base Image Builds
-
+ 
 on:
   push:
     # Publish `master` as Docker `latest` image.
